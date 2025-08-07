@@ -12,8 +12,8 @@ let mainInterval = setInterval(myTimer, 1000);
 function setTime() {
     const minute = Math.floor(Math.floor(timeRemaining / 1000) / 60);
     let second = String(Math.floor(timeRemaining / 1000) - (minute * 60));
-    if (second === "0") {
-        second = "00";
+    if (parseInt(second, 10) < 10) {
+        second = "0" + second;
     }
     const timeStr = minute <= 0 ? second : String(minute) + ":" + second;
     document.getElementById("timer").innerText = timeStr;
