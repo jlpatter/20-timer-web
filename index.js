@@ -5,9 +5,9 @@ const ALARM_SOUND = new Audio("alarm_cropped.mp3");
 
 let timeRemaining = TOTAL_TIME;
 let isResting = false;
-let isPlaying = true;
+let isPlaying = false;
 
-let mainInterval = setInterval(myTimer, 1000);
+let mainInterval = -1;
 
 function setTime() {
     const minute = Math.floor(Math.floor(timeRemaining / 1000) / 60);
@@ -36,7 +36,9 @@ function myTimer() {
 }
 
 document.getElementById("stopBtn").onclick = function() {
-    clearInterval(mainInterval);
+    if (mainInterval !== -1) {
+        clearInterval(mainInterval);
+    }
     timeRemaining = TOTAL_TIME;
     isResting = false;
     setTime();
@@ -50,7 +52,9 @@ document.getElementById("playBtn").onclick = function() {
         mainInterval = setInterval(myTimer, 1000);
         document.getElementById("playBtn").innerText = "Pause";
     } else {
-        clearInterval(mainInterval);
+        if (mainInterval !== -1) {
+            clearInterval(mainInterval);
+        }
         document.getElementById("playBtn").innerText = "Play";
     }
 }
