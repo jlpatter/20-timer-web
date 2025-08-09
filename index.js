@@ -2,6 +2,8 @@ const PAGE_TITLE = "202020 Timer";
 const TOTAL_TIME = 20 * 60 * 1000;  // 20 minutes
 const REST_TIME = 25 * 1000;  // 25 seconds
 const ALARM_SOUND = new Audio("alarm_cropped.mp3");
+const WORKING_BG_COLOR = '#4d4d4d';
+const RESTING_BG_COLOR = '#008000';
 
 let timeRemaining = TOTAL_TIME;
 let isResting = false;
@@ -26,8 +28,10 @@ function myTimer() {
         ALARM_SOUND.play();
         isResting = !isResting;
         if (isResting) {
+            document.body.style.backgroundColor = RESTING_BG_COLOR;
             timeRemaining = REST_TIME;
         } else {
+            document.body.style.backgroundColor = WORKING_BG_COLOR;
             timeRemaining = TOTAL_TIME;
         }
     }
@@ -41,6 +45,7 @@ document.getElementById("stopBtn").onclick = function() {
     }
     timeRemaining = TOTAL_TIME;
     isResting = false;
+    document.body.style.backgroundColor = WORKING_BG_COLOR;
     setTime();
     isPlaying = false;
     document.getElementById("playBtn").innerText = "Play";
