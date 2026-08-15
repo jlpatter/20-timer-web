@@ -5,6 +5,7 @@ const ALARM_SOUND = new Audio("alarm_cropped.mp3");
 const WORKING_BG_COLOR = '#4d4d4d';
 const RESTING_BG_COLOR = '#008000';
 
+let startTime;
 let timeRemaining = TOTAL_TIME;
 let isResting = false;
 let isPlaying = false;
@@ -23,7 +24,8 @@ function setTime() {
 }
 
 function myTimer() {
-    timeRemaining -= 1000;
+    timeRemaining -= (new Date()) - startTime;
+    startTime = new Date();
     if (timeRemaining <= 0) {
         ALARM_SOUND.play();
         isResting = !isResting;
@@ -54,6 +56,7 @@ document.getElementById("stopBtn").onclick = function() {
 document.getElementById("playBtn").onclick = function() {
     isPlaying = !isPlaying;
     if (isPlaying) {
+        startTime = new Date();
         mainInterval = setInterval(myTimer, 1000);
         document.getElementById("playBtn").innerText = "Pause";
     } else {
